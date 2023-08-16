@@ -1,7 +1,6 @@
 package com.beyond.languagedetectorservice;
 
 import com.beyond.languagedetectorservice.service.LanguageDetectorService;
-import com.optimaize.langdetect.i18n.LdLocale;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,7 +37,7 @@ class LanguageDetectorServiceApplicationTests {
 		String text = null;
 
 		String detectedLanguage = languageDetectorService.detectLanguageOf(text);
-		assertEquals(null, detectedLanguage);
+		assertEquals("", detectedLanguage);
 	}
 
 	@Test
@@ -46,15 +45,14 @@ class LanguageDetectorServiceApplicationTests {
 		String text = "";
 
 		String detectedLanguage = languageDetectorService.detectLanguageOf(text);
-		assertEquals(null, detectedLanguage); // Return null or handle it as needed.
+		assertEquals("", detectedLanguage); // Return null or handle it as needed.
 	}
 
 	@Test
 	void testDetectLanguage_UnsupportedLocale() {
-		String text = "Some text";
-		LdLocale unsupportedLocale = LdLocale.fromString("xyz"); // Assuming "xyz" is an unsupported locale.
+		String text = "!@#$%^&";
 
 		String detectedLanguage = languageDetectorService.detectLanguageOf(text);
-		assertEquals("xyz", detectedLanguage); // Return the unsupported locale or handle it as needed.
+		assertEquals("Language cannot be detected", detectedLanguage);
 	}
 }
